@@ -1,8 +1,8 @@
 const todolists = require('../models/todolists.model.js');
 
 
-var ObjectID = require('mongodb').ObjectID,
-  test = require('assert');
+//var ObjectID = require('mongodb').ObjectID,
+  //test = require('assert');
 // Get a timestamp in seconds
 
 
@@ -77,21 +77,13 @@ exports.addTodo = (req, res) => {
         });
     }
     var timestamp = Math.floor(new Date().getTime()/1000);
-// Create a date with the timestamp
-var timestampDate = new Date(timestamp*1000);
-
-// Create a new ObjectID with a specific timestamp
-var objectId = new ObjectID(timestamp);
-
-// Get the timestamp and validate correctness
-test.equal(timestampDate.toString(), objectId.getTimestamp().toString());
 
     
       // Create a todolist
     const todo = {
-        todoId:objectId,
+      
         todo:req.body.todo,
-        checked:false
+        checked:0
     };
 
     todolists.findOneAndUpdate(
@@ -113,7 +105,7 @@ exports.deleteTodo = (req, res) => {
      todolists.findByIdAndUpdate(
         {_id:req.params.listId},
         {$pull:
-            {list:{todoId:req.params.todoId}}})
+            {list:{_id:req.params.todoId}}})
     .then(todolist => {
         if(!todolist) {
             return res.status(404).send({
@@ -135,23 +127,30 @@ exports.deleteTodo = (req, res) => {
 }
 
 
+
+
+
 exports.toggleTodo = (req,res) => {
 
-     todolists.update(
-       {_id: req.params.listId}, 
-       {$set:{ "list.$[elem].checked":true }},
-       {arrayFilters:[{"elem.todoId": req.params.todoId}]})
+    todolists.updateOne(
+    {   _id:req.params.listId,
+       "list._id":req.params.todoId },
+    {
+        $inc: {"list.$.checked":1}
+    }
+       
+     )
      .then(todolist => {
         if(!todolist) {
             return res.status(404).send({
-                message: "todo not found with id " + req.params.todoTitle
+                message: "todo not found with id " + req.params.listId + " / " + req.params.todoId
             });
         }
-        res.send({message: "todo toggle successfully!"});
+        res.send({message: "todo toggle successfully!" + todolist});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
-                message: "todo not found with id " + req.params.todoId
+                message: "todo not found with id " + req.params.todoId 
             });                
         }
         return res.status(500).send({
