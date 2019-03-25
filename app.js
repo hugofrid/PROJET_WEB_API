@@ -12,6 +12,9 @@ var cors = require('cors');
 
 var notesRouter = require('./routes/notes');
 var todolistsRouter = require('./routes/todolists');
+var artistsRouter = require('./routes/artists');
+var albumsRouter = require('./routes/albums');
+var tracksRouter = require('./routes/tracks');
 
 var hostname = "localhost";
 var port = 3001;
@@ -33,6 +36,9 @@ app.use('/', indexRouter);
 
 app.use('/notes',notesRouter);
 app.use('/todolists',todolistsRouter);
+app.use('/artists',artistsRouter);
+app.use('/albums',albumsRouter);
+app.use('/tracks',tracksRouter);
 // app.listen(port, () => { console.log(" on est sur le port " + port)})
 module.exports = app;
 
