@@ -12,7 +12,7 @@ const todolists = require('../models/todolists.model.js');
 exports.findAll = (req, res) => {
     todolists.find()
     .then(todos => {
-        res.send(todos);
+        res.status(200).json(todos);
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving notes."
@@ -61,7 +61,7 @@ exports.createList = (req, res) => {
     // Save todolist in the todolists database
     todos.save()
     .then(data => {
-        res.send(data);
+        res.status(200).json(data);
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while creating the Note."
@@ -93,7 +93,7 @@ exports.addTodo = (req, res) => {
     		}
     	},{save:true})
     .then(data => {
-        res.send(data);
+        res.status(200).json(data);
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while creating the Note."
@@ -112,7 +112,7 @@ exports.deleteTodo = (req, res) => {
                 message: "todo not found with id " + req.params.todoTitle
             });
         }
-        res.send({message: "todo deleted successfully!"});
+        res.status(200).send({message: "todo deleted successfully!"});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
