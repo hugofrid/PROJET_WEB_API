@@ -10,7 +10,7 @@ const trackSchema = new mongoose.Schema(
     listenings:Number,
     likes:Number,
     featuring:[{
-    	type:Schema.Types.ObjectID,
+    	type:mongoose.Schema.Types.ObjectID,
     	ref:'artist' 
     }]
     

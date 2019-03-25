@@ -9,7 +9,7 @@ const artistSchema = new mongoose.Schema(
     birth:Date,
     followers:Number,
     albums:[{
-    	type:Schema.Types.ObjectID,
+    	type:mongoose.Schema.Types.ObjectID,
     	ref:'album' 
     }]
     

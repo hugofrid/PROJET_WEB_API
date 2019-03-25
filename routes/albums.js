@@ -9,4 +9,9 @@ router.put('/', album.create);
 
 router.delete('/:albumId', album.delete);
 
+/* GET one album */
+router.get('/:albumId', album.findOne);
+/* update  one album */
+router.post('/:albumId', album.update);
+
 module.exports = router;

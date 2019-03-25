@@ -9,4 +9,9 @@ router.put('/', artist.create);
 
 router.delete('/:artistId', artist.delete);
 
+/* GET one artist */
+router.get('/:artistId', artist.findOne);
+/* update  one artist */
+router.post('/:artistId', artist.update);
+
 module.exports = router;

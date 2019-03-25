@@ -6,7 +6,7 @@ exports.create = (req, res) => {
  // Validate request
     if(!req.body.title || !req.body.duration ) {
         return res.status(400).send({
-            message: "Track title can not be empty"
+            message: "Track title and duration can not be empty"
         });
     }
 
@@ -38,6 +38,69 @@ exports.findAll = (req, res) => {
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving tracks."
         });
+    });
+};
+
+// Find a single Album with a albumId
+exports.findOne = (req, res) => {
+  Track.findById(req.params.trackId)
+    .then(track => {
+      if (!track) {
+        return res.status(404).send({
+          message: 'Track not found with id ' + req.params.trackId
+        });
+      }
+      res.send(track);
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'Track not found with id ' + req.params.trackId
+        });
+      }
+      return res.status(500).send({
+        message: 'Error retrieving track with id ' + req.params.trackId
+      });
+    });
+};
+
+// Update an Track identified by the trackId in the request
+exports.update = (req, res) => {
+  // Validate Request
+  if(!req.body.title || !req.body.duration ) {
+        return res.status(400).send({
+            message: "Track title and duration can not be empty"
+        });
+    }
+
+  // Find track and update it with the request body
+  Track.findByIdAndUpdate(
+    req.params.trackId,
+    {
+      title: req.body.title,
+      duration: req.body.duration,
+      listenings: req.body.listenings,
+      likes: req.body.likes
+    },
+    { new: true }
+  )
+    .then(track => {
+      if (!track) {
+        return res.status(404).send({
+          message: 'Track not found with id ' + req.params.trackId
+        });
+      }
+      res.send(track);
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'Track not found with id ' + req.params.trackId
+        });
+      }
+      return res.status(500).send({
+        message: 'Error updating track with id ' + req.params.trackId
+      });
     });
 };
 

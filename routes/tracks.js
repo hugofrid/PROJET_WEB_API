@@ -9,4 +9,9 @@ router.put('/', track.create);
 
 router.delete('/:trackId', track.delete);
 
+/* GET one track */
+router.get('/:trackId', track.findOne);
+/* update  one track */
+router.post('/:trackId', track.update);
+
 module.exports = router;

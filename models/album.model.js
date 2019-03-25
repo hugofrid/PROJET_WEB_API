@@ -10,7 +10,7 @@ const albumSchema = new mongoose.Schema(
     genre:String,
     cover_url:String,
     tracks:[{
-    	type:Schema.Types.ObjectID,
+    	type:mongoose.Schema.Types.ObjectID,
     	ref:'track' 
     }]
     
