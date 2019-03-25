@@ -88,9 +88,11 @@ exports.addTodo = (req, res) => {
 
     todolists.findOneAndUpdate(
     	{_id: req.params.listId},
-    	{$push:{
-    		list:todo
-    		}
+    	{$push:
+            {list:{
+    		    $each: [todo] ,
+                $position:0
+    		}} 
     	},{save:true})
     .then(data => {
         res.status(200).json(data);
