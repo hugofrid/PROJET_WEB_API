@@ -1,18 +1,19 @@
 const mongoose = require('mongoose');
-var ObjectID = require('mongodb').ObjectID;
+var ObjectId = require('mongodb').ObjectID;
+var album = require('../models/album.model.js');
+
 
 
 
 const artistSchema = new mongoose.Schema(
   {
     nom:String,
-    birth:Date,
+    birth:String,
     followers:Number,
     albums:[{
-    	type:mongoose.Schema.Types.ObjectID,
-    	ref:'album' 
+    	type:mongoose.Schema.Types.ObjectId,
+        ref:'album' 
     }]
-    
   }
 );
 

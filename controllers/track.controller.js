@@ -1,5 +1,7 @@
-const Track = require('../models/track.model.js');
+const Track = require('../models/album.model.js');
 
+
+/*
 // Create and Save a new Track
 exports.create = (req, res) => {
 
@@ -125,4 +127,4 @@ exports.delete = (req, res) => {
             message: "Could not delete track with id " + req.params.trackId
         });
     });
-};
+};*/

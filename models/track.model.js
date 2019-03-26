@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-var ObjectID = require('mongodb').ObjectID;
+var ObjectId = require('mongodb').ObjectID;
+var album = require('../models/artist.model.js');
+
 
 
 
@@ -9,14 +11,12 @@ const trackSchema = new mongoose.Schema(
     duration:Number,
     listenings:Number,
     likes:Number,
-    featuring:[{
-    	type:mongoose.Schema.Types.ObjectID,
-    	ref:'artist' 
-    }]
+    featuring:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'artistSchema' 
+    }
     
   }
 );
-
-
 
 module.exports = mongoose.model('track', trackSchema);
