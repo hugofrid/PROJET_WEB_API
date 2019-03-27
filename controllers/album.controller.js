@@ -35,7 +35,7 @@ exports.create = (req, res) => {
 
 // Retrieve and return all albums from the database.
 exports.findAll = (req, res) => {
-    Album.find().populate('artist_id','track')
+    Album.find().populate('tracks artist_id')
     .then(album => {
         res.send(album);
     }).catch(err => {
@@ -47,7 +47,7 @@ exports.findAll = (req, res) => {
 
 // Find a single Album with a albumId
 exports.findOne = (req, res) => {
-  Album.findById(req.params.albumId).populate('artist_id','track')
+  Album.findById(req.params.albumId).populate('artist_id tracks')
     .then(album => {
       if (!album) {
         return res.status(404).send({
@@ -127,3 +127,60 @@ exports.delete = (req, res) => {
     });
 };
 
+
+
+//add a track to the tracks array
+exports.addTrack = (req, res) => {
+
+Album.findOneAndUpdate(
+      {_id: req.body.album_id},
+      {$push:
+            {tracks:req.body.track_id } 
+      },{save:true})
+    .then(album => {
+      if (!artist) {
+        return res.status(404).send({
+          message: 'Artist not found with id ' + req.params.album_id
+        });
+      }
+      res.send(artist);
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'Artist not found with id ' + req.params.album_id
+        });
+      }
+      return res.status(500).send({
+        message: 'Error updating artist with id ' + req.params.album_id
+      });
+    });
+};
+
+
+exports.removeTrack = (req, res) => {
+
+Album.findOneAndUpdate(
+      {_id: req.params.album_id},
+      {$pull:
+            {tracks:req.params.track_id } 
+      },{save:true})
+    .then(album => {
+      if (!artist) {
+        return res.status(404).send({
+          message: 'Artist not found with id ' + req.params.album_id
+        });
+      }
+      res.send(artist);
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'Artist not found with id ' + req.params.album_id
+        });
+      }
+      return res.status(500).send({
+        message: 'Error updating artist with id ' + req.params.album_id
+      });
+    });
+};
