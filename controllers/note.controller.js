@@ -46,6 +46,9 @@ exports.findAll = (req, res) => {
 };
 
 
+
+
+
 // Delete a note with the specified noteId in the request
 exports.delete = (req, res) => {
     Note.findByIdAndRemove(req.params.noteId)

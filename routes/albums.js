@@ -13,5 +13,6 @@ router.delete('/:albumId', album.delete);
 router.get('/:albumId', album.findOne);
 /* update  one album */
 //router.post('/:albumId', album.update);
+router.get('/likes/count', album.findLikesAlbum);
 
 module.exports = router;

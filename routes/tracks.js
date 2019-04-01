@@ -13,6 +13,6 @@ router.delete('/:trackId', track.delete);
 /* GET one track */
 router.get('/:trackId', track.findOne);
 /* update  one track */
-//router.post('/:trackId', track.update);
+router.post('/:trackId', track.updateLikes);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const Album = require('../models/album.model.js');
 const Artist = require('../controllers/artist.controller.js');
+const Track = require('../models/track.model.js');
 
 
 // Create and Save a new Album
@@ -54,7 +55,7 @@ exports.findOne = (req, res) => {
           message: 'Album not found with id ' + req.params.albumId
         });
       }
-      res.send(album);
+      res.status(200).json(album);
     })
     .catch(err => {
       if (err.kind === 'ObjectId') {
@@ -184,3 +185,39 @@ Album.findOneAndUpdate(
       });
     });
 };
+
+
+//obtenir le nombre de like par album
+exports.findLikesAlbum = (req, res) => {
+Album.aggregate([
+   {"$lookup":{
+        "from":"tracks", // name of the foreign collection
+        "localField":"_id",
+        "foreignField":"album_id",
+        "as":"lookup-data",
+  }},
+  {"$lookup":{
+        "from":"artists", // name of the foreign collection
+        "localField":"artist_id",
+        "foreignField":"_id",
+        "as":"lookup-data-artist"
+  }},
+  {"$addFields":{
+    "likes":{
+      "$sum":"$lookup-data.likes"
+    }}},
+    {"$addFields":{
+      "artist":"$lookup-data-artist.nom"
+    }}
+  ,
+  {"$project":{"lookup-data":0}}
+]).then(album => {
+        res.send(album);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving albums."
+        });
+    });
+}
+
+

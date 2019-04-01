@@ -68,13 +68,13 @@ exports.findOne = (req, res) => {
       });
     });
 };
-/*
-// Update an Track identified by the trackId in the request
-exports.update = (req, res) => {
+
+// Update an Track's like  identified by the trackId in the request
+exports.updateLikes = (req, res) => {
   // Validate Request
-  if(!req.body.title || !req.body.duration ) {
+  if(!req.body.likes) {
         return res.status(400).send({
-            message: "Track title and duration can not be empty"
+            message: "Track's likes can not be empty"
         });
     }
 
@@ -82,9 +82,6 @@ exports.update = (req, res) => {
   Track.findByIdAndUpdate(
     req.params.trackId,
     {
-      title: req.body.title,
-      duration: req.body.duration,
-      listenings: req.body.listenings,
       likes: req.body.likes
     },
     { new: true }
@@ -109,7 +106,7 @@ exports.update = (req, res) => {
     });
 };
 
-*/
+
 // Delete a track with the specified trackId in the request
 exports.delete = (req, res) => {
     Track.findByIdAndRemove(req.params.trackId)

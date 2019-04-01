@@ -1,4 +1,6 @@
 const Artist = require('../models/artist.model.js');
+const Album  = require('../models/album.model.js');
+const Track  = require('../models/track.model.js');
 
 // Create and Save a new Artist
 exports.create = (req, res) => {
@@ -185,4 +187,6 @@ exports.delete = (req, res) => {
         });
     });
 };
+
+
 

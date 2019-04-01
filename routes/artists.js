@@ -18,4 +18,6 @@ router.get('/:artistId', artist.findOne);
 /* update  one artist */
 router.post('/:artistId', artist.update);
 
+
+
 module.exports = router;
