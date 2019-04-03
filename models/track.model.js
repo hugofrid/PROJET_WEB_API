@@ -11,15 +11,15 @@ const trackSchema = new mongoose.Schema(
         type:mongoose.Schema.Types.ObjectId,
         ref:'album'
     },
+    artist:
+    {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'album'
+    },
     title:String,
     duration:Number,
     listenings:Number,
     likes:Number,
-    featuring:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'artist' 
-    }
-    
   }
 );
 
