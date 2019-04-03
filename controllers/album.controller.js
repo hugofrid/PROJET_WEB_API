@@ -68,48 +68,9 @@ exports.findOne = (req, res) => {
       });
     });
 };
-/*
-// Update an Album identified by the albumId in the request
-exports.update = (req, res) => {
-  // Validate Request
-  if(!req.body.title || !req.body.release ) {
-        return res.status(400).send({
-            message: "Album title and release can not be empty"
-        });
-    }
 
-  // Find album and update it with the request body
-  Album.findByIdAndUpdate(
-    req.params.albumId,
-    {
-      title:req.body.title,
-      release:req.body.release,
-      genre:req.body.genre,
-      cover_url:req.body.cover_url
-    },
-    { new: true }
-  )
-    .then(album => {
-      if (!album) {
-        return res.status(404).send({
-          message: 'Album not found with id ' + req.params.albumId
-        });
-      }
-      res.send(album);
-    })
-    .catch(err => {
-      if (err.kind === 'ObjectId') {
-        return res.status(404).send({
-          message: 'Album not found with id ' + req.params.albumId
-        });
-      }
-      return res.status(500).send({
-        message: 'Error updating album with id ' + req.params.albumId
-      });
-    });
-};
 
-*/
+
 // Delete an album with the specified albumId in the request
 exports.delete = (req, res) => {
     Album.findByIdAndRemove(req.params.albumId)
@@ -141,7 +102,7 @@ Album.findOneAndUpdate(
     .then(album => {
       if (!artist) {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.album_id
+          message: 'Artist not found with id at' + req.params.album_id
         });
       }
       res.send(artist);
@@ -149,11 +110,11 @@ Album.findOneAndUpdate(
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.album_id
+          message: 'Artist not found with id at' + req.params.album_id
         });
       }
       return res.status(500).send({
-        message: 'Error updating artist with id ' + req.params.album_id
+        message: 'Error updating artist with id at' + req.params.album_id
       });
     });
 };
@@ -169,7 +130,7 @@ Album.findOneAndUpdate(
     .then(album => {
       if (!artist) {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.album_id
+          message: 'Artist not found with id rt' + req.params.album_id
         });
       }
       res.send(artist);
@@ -177,11 +138,11 @@ Album.findOneAndUpdate(
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.album_id
+          message: 'Artist not found with id rt' + req.params.album_id
         });
       }
       return res.status(500).send({
-        message: 'Error updating artist with id ' + req.params.album_id
+        message: 'Error updating artist with id rt' + req.params.album_id
       });
     });
 };

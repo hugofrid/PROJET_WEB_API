@@ -49,7 +49,7 @@ exports.findOne = (req, res) => {
     .then(artist => {
       if (!artist) {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.artistId
+          message: 'Artist not found with id fo' + req.params.artistId
         });
       }
       res.send(artist);
@@ -57,11 +57,11 @@ exports.findOne = (req, res) => {
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.artistId
+          message: 'Artist not found with id fo' + req.params.artistId
         });
       }
       return res.status(500).send({
-        message: 'Error retrieving artist with id ' + req.params.artistId
+        message: 'Error retrieving artist with id fo' + req.params.artistId
       });
     });
 };
@@ -76,19 +76,17 @@ exports.update = (req, res) => {
     }
 
   // Find artist and update it with the request body
-  Artist.findByIdAndUpdate(
-    req.params.artistId,
+  Artist.findOneAndUpdate(
+    {_id:req.params.artistId},
     {
-      //nom: req.body.nom,
-      //birth: req.body.birth,
-      followers : req.body.followers
+      followers: req.body.followers
     },
     { new: true }
   )
     .then(artist => {
       if (!artist) {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.artistId
+          message: 'Artist not found with id dktdsiyrdx' + req.params.artistId
         });
       }
       res.send(artist);
@@ -96,11 +94,11 @@ exports.update = (req, res) => {
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.artistId
+          message: 'Artist not found with id hhhhhh' + req.params.artistId
         });
       }
       return res.status(500).send({
-        message: 'Error updating artist with id ' + req.params.artistId
+        message: 'Error updating artist with id kkkk' + req.params.artistId
       });
     });
 };
@@ -119,7 +117,7 @@ Artist.findOneAndUpdate(
     .then(artist => {
       if (!artist) {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.artistId
+          message: 'Artist not found with id aa' + req.params.artistId
         });
       }
       res.send(artist);
@@ -127,11 +125,11 @@ Artist.findOneAndUpdate(
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.artistId
+          message: 'Artist not found with id aa' + req.params.artistId
         });
       }
       return res.status(500).send({
-        message: 'Error updating artist with id ' + req.params.artistId
+        message: 'Error updating artist with id aa' + req.params.artistId
       });
     });
 };
@@ -148,7 +146,7 @@ Artist.findOneAndUpdate(
     .then(artist => {
       if (!artist) {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.artistId
+          message: 'Artist not found with id ra' + req.params.artistId
         });
       }
       res.send(artist);
@@ -156,11 +154,11 @@ Artist.findOneAndUpdate(
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'Artist not found with id ' + req.params.artistId
+          message: 'Artist not found with id ra' + req.params.artistId
         });
       }
       return res.status(500).send({
-        message: 'Error updating artist with id ' + req.params.artistId
+        message: 'Error updating artist with id ra' + req.params.artistId
       });
     });
 };
@@ -172,18 +170,18 @@ exports.delete = (req, res) => {
     .then(artist => {
         if(!artist) {
             return res.status(404).send({
-                message: "Artist not found with id " + req.params.artistId
+                message: "Artist not found with id d" + req.params.artistId
             });
         }
         res.send({message: "Artist deleted successfully!"});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
-                message: "Artist not found with id " + req.params.artistId
+                message: "Artist not found with id d" + req.params.artistId
             });                
         }
         return res.status(500).send({
-            message: "Could not delete artist with id " + req.params.artistId
+            message: "Could not delete artist with id d" + req.params.artistId
         });
     });
 };

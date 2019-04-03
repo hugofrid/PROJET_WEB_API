@@ -19,7 +19,7 @@ exports.create = (req, res) => {
         duration:req.body.duration,
         listenings:req.body.listenings,
         likes:req.body.likes,
-        featuring:req.body.featuring
+        
     });
 
     // Save Track in the database
@@ -83,6 +83,43 @@ exports.updateLikes = (req, res) => {
     req.params.trackId,
     {
       likes: req.body.likes
+    },
+    { new: true }
+  )
+    .then(track => {
+      if (!track) {
+        return res.status(404).send({
+          message: 'Track not found with id ' + req.params.trackId
+        });
+      }
+      res.send(track);
+    })
+    .catch(err => {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).send({
+          message: 'Track not found with id ' + req.params.trackId
+        });
+      }
+      return res.status(500).send({
+        message: 'Error updating track with id ' + req.params.trackId
+      });
+    });
+};
+
+// Update an Track's listenings  identified by the trackId in the request
+exports.updateListenings = (req, res) => {
+  // Validate Request
+  if(!req.body.listenings) {
+        return res.status(400).send({
+            message: "Track's listenings can not be empty"
+        });
+    }
+
+  // Find track and update it with the request body
+  Track.findByIdAndUpdate(
+    req.params.trackId,
+    {
+      listenings: req.body.listenings
     },
     { new: true }
   )

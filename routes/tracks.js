@@ -13,6 +13,9 @@ router.delete('/:trackId', track.delete);
 /* GET one track */
 router.get('/:trackId', track.findOne);
 /* update  one track */
-router.post('/:trackId', track.updateLikes);
+router.post('/likes/:trackId', track.updateLikes);
+
+router.post('/listenings/:trackId', track.updateListenings);
+
 
 module.exports = router;
